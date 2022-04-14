@@ -35,7 +35,7 @@ request<{
 });
 ```
 
-`typed-request` 应具备属性 `api` `to`, 分别为 api 定义函数及 golang 风格的错误返回函数。
+`typed-request` 应具备属性 `api` 为 api 定义函数。
 
 使用 `api`:
 
@@ -58,26 +58,6 @@ api({
     }
 }).then(resp => {
     const a = resp.data; // string
-});
-```
-
-使用 `to`:
-
-```typescript
-api.to({
-    params: {
-        a: '1'
-    }
-}).then(([resp, err]) => {
-    if (resp) {
-        const a = resp.data;
-    } else if (err) {
-        // err: {
-        //     error: Error,
-        //     errMsg: string
-        // }
-        const msg = err.errMsg;
-    }
 });
 ```
 

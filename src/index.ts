@@ -2,7 +2,6 @@ import {
   RequestBody,
   TRequest,
   TRequestApi,
-  TRequestError,
   TRequestMiddleware,
   TRequestOptions,
   TRequestResponse,
@@ -43,23 +42,6 @@ export function factory(
     return resp as TRequestResponse<R>;
   };
 
-  const to: TRequest["to"] = async function <
-    T extends RequestBody = RequestBody,
-    R extends TRequestResponse["data"] = TRequestResponse["data"],
-    E extends Record<string | number | symbol, any> = {}
-  >(options: TRequestOptions<T>) {
-    try {
-      const data = await request<T, R>(options);
-      return [data, null];
-    } catch (e) {
-      const error: TRequestError<E> = {
-        error: e,
-      } as TRequestError<E>;
-      return [null, error];
-    }
-  };
-  request.to = to;
-
   request.api = function <
     T extends RequestBody = RequestBody,
     R extends TRequestResponse["data"] = TRequestResponse["data"],
@@ -75,25 +57,6 @@ export function factory(
       } as TRequestOptions<NT>);
       return data;
     };
-    const to: TRequestApi<T, R, E>["to"] = async function <
-      NT extends T,
-      NR extends R,
-      NE extends E
-    >(options: Partial<TRequestOptions<NT>> & NT) {
-      try {
-        const data = await api<NT, NR>({
-          ...common,
-          ...options,
-        } as Partial<TRequestOptions<NT>> & NT);
-        return [data, null];
-      } catch (e) {
-        const error: TRequestError<NE> = {
-          error: e,
-        } as TRequestError<NE>;
-        return [null, error];
-      }
-    };
-    api.to = to;
     return api;
   };
 
