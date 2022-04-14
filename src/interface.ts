@@ -56,7 +56,7 @@ export type TRequestResponse<Data extends any = any> = {
   data: Data;
 
   // 开发者服务器返回的 HTTP Response Header
-  headers: Record<string, string>;
+  headers: Record<string, string | string[]>;
 
   // 服务器返回的 HTTP 状态码
   status: number;

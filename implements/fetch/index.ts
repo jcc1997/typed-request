@@ -2,7 +2,7 @@
  * typed-request 的 fetch 实现
  */
 import { factory } from "../../src/index";
-import {
+import type {
   ResponseType,
   RequestBody,
   TRequestOptions,
@@ -49,7 +49,7 @@ async function basic<
     Accept: "application/json, text/plain, */*",
     ...(["POST", "PUT", "PATCH"].includes(method)
       ? {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
         }
       : {}),
     ...headers,
@@ -60,6 +60,7 @@ async function basic<
     credentials: "same-origin", // include, same-origin, *omit
     method, // *GET, POST, PUT, DELETE, etc.
     mode: "same-origin", // no-cors, cors, *same-origin
+    redirect: "follow",
     headers: _headers,
     body,
     ...init,

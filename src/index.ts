@@ -46,8 +46,8 @@ export function factory(
     T extends RequestBody = RequestBody,
     R extends TRequestResponse["data"] = TRequestResponse["data"],
     E extends Record<string | number | symbol, any> = {}
-  >(common: Partial<TRequestOptions<T>>): TRequestApi<T, R, E> {
-    const api: TRequestApi<T, R, E> = async function <
+  >(common: Partial<TRequestOptions<T>>): TRequestApi<T, R> {
+    const api: TRequestApi<T, R> = async function <
       NT extends T,
       NR extends R
     >(options: Partial<TRequestOptions<NT>>) {
