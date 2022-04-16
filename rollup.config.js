@@ -51,10 +51,66 @@ const outputConfigs = {
   },
 }
 
+const fetchConfigs = {
+  mjs: {
+    file: 'dist/fetch.mjs',
+    format: `es`,
+  },
+  global: {
+    file: 'dist/fetch.iife.js',
+    format: `iife`,
+  },
+  browser: {
+    file: 'dist/fetch.esm-browser.js',
+    format: `es`,
+  },
+}
+
+const xhrConfigs = {
+  mjs: {
+    file: 'dist/xhr.mjs',
+    format: `es`,
+  },
+  global: {
+    file: 'dist/xhr.iife.js',
+    format: `iife`,
+  },
+  browser: {
+    file: 'dist/xhr.esm-browser.js',
+    format: `es`,
+  },
+}
+
+const httpConfigs = {
+  mjs: {
+    file: 'dist/http.mjs',
+    format: `es`,
+  },
+  cjs: {
+    file: 'dist/http.cjs',
+    format: `cjs`,
+  },
+}
+
 const packageBuilds = Object.keys(outputConfigs)
 const packageConfigs = packageBuilds.map((format) =>
-  createConfig('index', format, outputConfigs[format])
+  createConfig('src/index.ts', format, outputConfigs[format])
 )
+
+const fetchBuilds = Object.keys(fetchConfigs)
+packageConfigs.push(...fetchBuilds.map((format) =>
+  createConfig('implements/fetch/index.ts', format, fetchConfigs[format])
+))
+
+const xhrBuilds = Object.keys(xhrConfigs)
+packageConfigs.push(...xhrBuilds.map((format) =>
+  createConfig('implements/xhr/index.ts', format, xhrConfigs[format])
+))
+
+const httpBuilds = Object.keys(httpConfigs)
+packageConfigs.push(...httpBuilds.map((format) =>
+  createConfig('implements/http/index.ts', format, httpConfigs[format])
+))
 
 // only add the production ready if we are bundling the options
 // packageBuilds.forEach((buildName) => {
@@ -64,6 +120,8 @@ const packageConfigs = packageBuilds.map((format) =>
 //     packageConfigs.push(createMinifiedConfig(buildName))
 //   }
 // })
+
+console.log(packageConfigs);
 
 export default packageConfigs
 
@@ -78,7 +136,7 @@ function createConfig(entry, buildName, output, plugins = []) {
   output.externalLiveBindings = false
   output.globals = {
     // 'vue-demi': 'VueDemi',
-    vue: 'Vue',
+    // vue: 'Vue',
     // '@vue/composition-api': 'vueCompositionApi',
   }
 
@@ -88,7 +146,7 @@ function createConfig(entry, buildName, output, plugins = []) {
   // const isNodeBuild = buildName === 'cjs'
   // const isBundlerESMBuild = buildName === 'browser' || buildName === 'mjs'
 
-  if (isGlobalBuild) output.name = 'HookDi'
+  if (isGlobalBuild) output.name = 'TypedRequest'
 
   const shouldEmitDeclarations = !hasTSChecked
 
@@ -111,7 +169,7 @@ function createConfig(entry, buildName, output, plugins = []) {
   hasTSChecked = true
 
   // const external = ['vue-demi', 'vue', '@vue/composition-api']
-  const external = ['vue']
+  const external = []
   if (!isGlobalBuild) {
     external.push('@vue/devtools-api')
   }
@@ -119,7 +177,7 @@ function createConfig(entry, buildName, output, plugins = []) {
   const nodePlugins = [resolve(), commonjs()]
 
   return {
-    input: `src/${entry}.ts`,
+    input: entry,
     // Global and Browser ESM builds inlines everything so that they can be
     // used alone.
     external,

@@ -1,13 +1,49 @@
 {
-  "name": "@cj97/typed-request",
-  "version": "0.0.5",
+  "name": "typed-request",
+  "version": "0.0.1",
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "test": "vitest"
   },
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/jcc1997/cj97/tree/main/2.0/packages/typed-request",
+  "unpkg": "dist/index.iife.js",
+  "engines": {
+    "node": ">= 12.7.0"
+  },
+  "exports": {
+    ".": {
+      "browser": "./dist/index.esm-browser.js",
+      "node": {
+        "import": "./dist/index.mjs",
+        "require": "./dist/index.cjs"
+      },
+      "import": "./dist/index.mjs"
+    },
+    "./fetch": {
+      "browser": "./dist/fetch.esm-browser.js",
+      "import": "./dist/fetch.mjs"
+    },
+    "./xhr": {
+      "browser": "./dist/xhr.esm-browser.js",
+      "import": "./dist/xhr.mjs"
+    },
+    "./http": {
+      "node": {
+        "import": "./dist/index.mjs",
+        "require": "./dist/index.cjs"
+      }
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
+  "repository": "https://github.com/jcc1997/typed-request",
   "keywords": [
     "typescript",
     "request"

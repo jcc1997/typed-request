@@ -107,6 +107,21 @@ import fetchRequest from 'typed-request/fetch';
 import httpRequest from 'typed-request/http';
 ```
 
+### define your own implement
+
+give function satisfy interface `TRequestBasic` to `factory` will generate a new `typed-request`
+
+```typescript
+/**
+ * typed-request 的 fetch 实现
+ */
+import { factory } from "typed-request";
+const yourRequest = factory(async function (options) {
+    ...
+    return response;
+}, []);
+```
+
 ## define the apis and get definition
 
 Define the api first and implement them while you need them.
