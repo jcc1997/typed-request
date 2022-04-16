@@ -129,6 +129,7 @@ import { defineApis, defineApi } from 'typed-request';
 // definitions.ts
 export const apiDefs = defineApis({
     async getData (trq, options: { id: string }) => {
+        // trq is the request you wanted
         const { id } = options;
         const resp = await trq<TRequestOptions, { id: string }[]>({
             url: '/api/:id',
