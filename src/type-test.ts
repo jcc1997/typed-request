@@ -28,7 +28,7 @@ request.api = function <
   throw new Error();
 };
 
-request.create = function (
+request.fork = function (
   middlewares: TRequestMiddleware | TRequestMiddleware[]
 ): TRequest {
   throw new Error();
@@ -121,3 +121,7 @@ const apiDef = defineApi(async (trq, options: { id: string }) => {
     id: "123",
   });
 }
+
+const newRequest = request.fork((options, next) => {
+  return next(options);
+});

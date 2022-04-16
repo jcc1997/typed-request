@@ -108,8 +108,8 @@ export interface TRequest {
    * 创建新的request
    * @param middleware 中间件
    */
-  create(middleware: TRequestMiddleware): TRequest;
-  create(middlewares: TRequestMiddleware[]): TRequest;
+  fork(middleware: TRequestMiddleware): TRequest;
+  fork(middlewares: TRequestMiddleware[]): TRequest;
 }
 
 /**

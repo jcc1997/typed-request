@@ -60,7 +60,7 @@ export function factory(
     return api;
   };
 
-  request.create = function (
+  request.fork = function (
     middlewares: TRequestMiddleware | TRequestMiddleware[]
   ): TRequest {
     return factory(basic, [...middles].concat(middlewares));
