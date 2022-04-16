@@ -30,11 +30,10 @@ export function factory(
     function dispatch(
       i: number
     ): (options: TRequestOptions<T>) => Promise<TRequestResponse<R>> {
-      const mid = concatMids[i];
-
       if (i === concatMids.length) {
         return (options) => basic(options);
       } else {
+        const mid = concatMids[i];
         return (options) => mid(options, dispatch(i + 1));
       }
     }
@@ -47,10 +46,9 @@ export function factory(
     R extends TRequestResponse["data"] = TRequestResponse["data"],
     E extends Record<string | number | symbol, any> = {}
   >(common: Partial<TRequestOptions<T>>): TRequestApi<T, R> {
-    const api: TRequestApi<T, R> = async function <
-      NT extends T,
-      NR extends R
-    >(options: Partial<TRequestOptions<NT>>) {
+    const api: TRequestApi<T, R> = async function <NT extends T, NR extends R>(
+      options: Partial<TRequestOptions<NT>>
+    ) {
       const data = await request<NT, NR>({
         ...common,
         ...options,
