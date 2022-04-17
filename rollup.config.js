@@ -121,8 +121,6 @@ packageConfigs.push(...httpBuilds.map((format) =>
 //   }
 // })
 
-console.log(packageConfigs);
-
 export default packageConfigs
 
 function createConfig(entry, buildName, output, plugins = []) {

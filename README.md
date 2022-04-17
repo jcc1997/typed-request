@@ -100,11 +100,11 @@ you can import them by
 
 ```typescript
 // use XMLHttpRequest for browser
-import xhrRequest from 'typed-request/xhr';
+import xhrRequest from '@cj97/typed-request/xhr';
 // use fetch for browser
-import fetchRequest from 'typed-request/fetch';
+import fetchRequest from '@cj97/typed-request/fetch';
 // use http for node
-import httpRequest from 'typed-request/http';
+import httpRequest from '@cj97/typed-request/http';
 ```
 
 ### define your own implement
@@ -139,7 +139,7 @@ Another way is to just pack up the logic and do not relate it to a specified req
 ### usage
 
 ```typescript
-import { defineApis, defineApi } from 'typed-request';
+import { defineApis, defineApi } from '@cj97/typed-request';
 
 // definitions.ts
 export const apiDefs = defineApis({
@@ -173,7 +173,7 @@ export const oneApiDef = defineApi(function (trq, options: { id: string }) {
 
 ```typescript
 // implements.ts
-import trq from 'typed-request/fetch'; //
+import trq from '@cj97/typed-request/fetch'; //
 
 // const apis: {
 //     getData: (options: {
